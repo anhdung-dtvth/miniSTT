@@ -23,18 +23,6 @@
     * **Chế độ 1 Cột:** Giao diện dọc (tối ưu cho Mobile hoặc màn hình nhỏ).
 * 🔒 **Bảo mật tuyệt đối:** Mọi xử lý diễn ra local, không gửi dữ liệu ra ngoài Internet.
 
----
-
-## 📸 Demo Giao diện
-
-*(Chỗ này để bạn chèn ảnh screenshot sau này)*
-
-| Chế độ 2 Cột (Desktop) | Chế độ 1 Cột (Mobile) |
-| :---: | :---: |
-| ![Demo 2 Col](https://via.placeholder.com/400x200?text=Screenshot+2+Cot) | ![Demo 1 Col](https://via.placeholder.com/400x200?text=Screenshot+1+Cot) |
-
----
-
 ## 🛠️ Cài đặt (Installation)
 
 Yêu cầu: Máy tính đã cài **Python 3.8+** và **Git**.
@@ -108,8 +96,5 @@ Mọi ý kiến đóng góp đều được hoan nghênh!
 
 Dự án được phát hành dưới giấy phép [MIT](https://www.google.com/search?q=LICENSE). Thoải mái sử dụng và tùy biến.
 
----
 
 *Made with ❤️ and Python.*
-
-```
