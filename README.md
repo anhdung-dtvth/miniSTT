@@ -86,12 +86,6 @@ streamlit run app.py
 
 Mọi ý kiến đóng góp đều được hoan nghênh!
 
-1. Fork dự án.
-2. Tạo nhánh tính năng mới (`git checkout -b feature/AmazingFeature`).
-3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`).
-4. Push lên nhánh (`git push origin feature/AmazingFeature`).
-5. Tạo Pull Request.
-
 ## 📜 License
 
 Dự án được phát hành dưới giấy phép [MIT](https://www.google.com/search?q=LICENSE). Thoải mái sử dụng và tùy biến.
