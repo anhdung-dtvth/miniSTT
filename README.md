@@ -29,7 +29,7 @@ Yêu cầu: Máy tính đã cài **Python 3.8+** và **Git**.
 
 ### 1. Clone dự án về máy
 ```bash
-git clone [https://github.com/anhdung-dtvth/miniSTT](https://github.com/anhdung-dtvth/miniSTT)
+git clone https://github.com/anhdung-dtvth/miniSTT
 cd mini-stt-tool
 
 ```
