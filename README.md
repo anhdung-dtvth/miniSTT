@@ -34,9 +34,7 @@ cd mini-stt-tool
 
 ```
 
-### 2. Tạo môi trường ảo (Khuyên dùng)
-
-Để tránh xung đột thư viện với hệ thống.
+### 2. Tạo môi trường ảo
 
 ```bash
 # Windows
