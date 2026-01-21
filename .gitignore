@@ -1,0 +1,25 @@
+# Thư mục ảo (QUAN TRỌNG, không bao giờ up cái này)
+venv/
+.venv/
+__pycache__/
+
+# File tạm thời do tool tạo ra
+temp/
+*.mp3
+*.wav
+*.m4a
+
+# File hệ thống
+.DS_Store
+
+temp/
+
+models/
+*.pt
+*.bin
+
+dist/
+
+build/
+
+input_audio/

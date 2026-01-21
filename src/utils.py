@@ -16,6 +16,44 @@ def remove_file(file_path):
         except:
             pass
 
+def delete_all_data(target_dirs=["data", "temp"]):
+    if isinstance(target_dirs, str):
+        target_dirs = [target_dirs]
+        
+    import shutil
+    import stat
+    import time
+    
+    def on_rm_error(func, path, exc_info):
+        # Attempt to fix read-only files
+        try:
+            os.chmod(path, stat.S_IWRITE)
+            func(path)
+        except Exception as e:
+            # If it still fails, we want to know
+             print(f"Failed to delete {path}: {e}")
+             raise e
+            
+    success = True
+    for d in target_dirs:
+        if os.path.exists(d):
+            try:
+                shutil.rmtree(d, onerror=on_rm_error)
+                # Small delay to ensure OS releases handles before recreating
+                time.sleep(0.1)
+                os.makedirs(d, exist_ok=True)
+                
+                # Double check if it's actually empty/fresh
+                if len(os.listdir(d)) > 0:
+                     print(f"Warning: {d} appears not empty after recreation.")
+                     success = False
+
+            except Exception as e:
+                print(f"Error deleting {d}: {e}")
+                success = False
+                
+    return success
+
 def get_audio_base64(file_path):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -25,6 +63,69 @@ def format_time(seconds):
     minutes = int(seconds // 60)
     seconds = int(seconds % 60)
     return f"{minutes:02}:{seconds:02}"
+
+# --- HÀM XỬ LÝ AUDIO MỚI ---
+import csv
+
+def save_segments_to_folder(original_audio_path, segments, output_dir="data"):
+    from pydub import AudioSegment
+    # 1. Tạo folder tên file audio
+    base_name = os.path.splitext(os.path.basename(original_audio_path))[0]
+    # Handle weird characters if necessary, but simple is ok for now
+    session_dir = os.path.join(output_dir, base_name)
+    if not os.path.exists(session_dir):
+        os.makedirs(session_dir)
+
+    # 2. Xử lý audio gốc
+    audio = AudioSegment.from_file(original_audio_path)
+    
+    metadata = []
+    
+    for i, segment in enumerate(segments):
+        start_ms = segment["start"] * 1000
+        end_ms = segment["end"] * 1000
+        
+        # Cắt audio
+        clip = audio[start_ms:end_ms]
+        
+        # Lưu file segment
+        segment_filename = f"segment_{i+1:03d}.wav"
+        segment_path = os.path.join(session_dir, segment_filename)
+        clip.export(segment_path, format="wav")
+        
+        # Lưu info
+        metadata.append({
+            "filename": segment_filename,
+            "transcription": segment["text"].strip()
+        })
+        
+    # 3. Lưu CSV
+    csv_path = os.path.join(session_dir, "metadata.csv")
+    with open(csv_path, mode="w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["filename", "transcription"])
+        writer.writeheader()
+        writer.writerows(metadata)
+        
+    return session_dir
+
+def load_session_data(session_dir):
+    csv_path = os.path.join(session_dir, "metadata.csv")
+    if not os.path.exists(csv_path):
+        return []
+    
+    data = []
+    with open(csv_path, mode="r", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            data.append(row)
+    return data
+
+def update_transcript(session_dir, csv_data):
+    csv_path = os.path.join(session_dir, "metadata.csv")
+    with open(csv_path, mode="w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["filename", "transcription"])
+        writer.writeheader()
+        writer.writerows(csv_data)
 
 # --- HÀM TẠO GIAO DIỆN (Đã sửa logic CSS) ---
 # src/utils.py
