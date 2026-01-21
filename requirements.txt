@@ -1,3 +1,5 @@
 openai-whisper
 streamlit
 pydub
+pygame
+customtkinter
