@@ -71,6 +71,11 @@ Whisper cần **FFmpeg** để xử lý file âm thanh. Nếu chưa có, bạn c
 streamlit run app.py
 
 ```
+hoặc
+```bash
+python gui_app.py
+
+```
 
 
 2. Trình duyệt sẽ tự mở tại địa chỉ local:
